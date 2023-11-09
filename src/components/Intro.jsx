@@ -35,7 +35,11 @@ const Intro = () => {
           </button>
         </Form>
       </div>
-      <img src={illustration} alt="person with money" width={600} />
+      <img
+        src={illustration}
+        alt="two people practicing online banking outside of a bank"
+        width={600}
+      />
     </div>
   );
 };

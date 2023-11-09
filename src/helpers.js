@@ -1,17 +1,18 @@
-export const wait = () => new Promise(res => setTimeout(res, Math.random() * 2000))
+// Dummy wait function to simulate not being in local storage
+export const wait = () => new Promise(res => setTimeout(res, Math.random() * 1000))
 
-// colors
+// Colors
 const generateRandomColor = () => {
     const existingBudgetLength = fetchData("budgets")?.length ?? 0;
     return `${existingBudgetLength * 34} 65% 50%`
 }
 
-// Local storage
+// Local Storage
 export const fetchData = (key) => {
     return JSON.parse(localStorage.getItem(key));
 };
 
-// create budget
+// Create Budget
 export const createBudget = ({
     name, amount
 }) => {
@@ -27,7 +28,7 @@ export const createBudget = ({
         JSON.stringify([...existingBudgets, newItem]))
 }
 
-// create expense
+// Create Expense
 export const createExpense = ({
     name, amount, budgetId
 }) => {
@@ -43,7 +44,7 @@ export const createExpense = ({
         JSON.stringify([...existingExpenses, newItem]))
 }
 
-// total spent per budget
+// Total Spent Per Budget
 export const calcSpentByBudget = (budgetId) => {
     const expenses = fetchData("expenses") ?? [];
     const budgetSpent = expenses.reduce((acc, expense) => {
@@ -63,7 +64,7 @@ export const deleteItem = ({ key }) => {
 
 // Formatting
 
-// percentages
+// Percentages
 export const formatPercentage = (amt) => {
     return amt.toLocaleString(undefined, {
         style: "percent",
@@ -78,3 +79,6 @@ export const formatCurrency = (amt) => {
         currency: "USD"
     })
 }
+
+// Time
+export const formatDateToLocaleString = (epoch) => new Date(epoch).toLocaleDateString();
