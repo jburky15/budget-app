@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 // components
 import Intro from "../components/Intro";
@@ -9,7 +9,13 @@ import BudgetItem from "../components/BudgetItem";
 import Table from "../components/Table";
 
 // helper functions
-import { createBudget, createExpense, fetchData, wait } from "../helpers";
+import {
+  createBudget,
+  createExpense,
+  deleteItem,
+  fetchData,
+  wait,
+} from "../helpers";
 import { toast } from "react-toastify";
 
 // loader
@@ -61,6 +67,18 @@ export async function dashboardAction({ request }) {
       throw new Error("There was a problem creating your expense.");
     }
   }
+
+  if (_action === "deleteExpense") {
+    try {
+      deleteItem({
+        key: "expenses",
+        id: values.expenseId,
+      });
+      return toast.success(`Expense deleted!`);
+    } catch (err) {
+      throw new Error("There was a problem deleting your expense.");
+    }
+  }
 }
 
 const Dashboard = () => {
@@ -90,10 +108,15 @@ const Dashboard = () => {
                   <div className="grid-md">
                     <h2>Recent Expenses</h2>
                     <Table
-                      expenses={expenses.sort(
-                        (a, b) => b.createdAt - a.createdAt
-                      )}
+                      expenses={expenses
+                        .sort((a, b) => b.createdAt - a.createdAt)
+                        .slice(0, 8)}
                     />
+                    {expenses.length > 8 && (
+                      <Link to="expenses" className="btn btn--dark">
+                        View All Expenses
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>

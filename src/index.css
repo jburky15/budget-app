@@ -34,6 +34,7 @@ svg {
   --muted: 183 8% 55%;
   --light: 180 14% 85%;
   --warning: 4 66% 63%;
+  --dark-button: 105 100% 8%;
 
   /* utils */
   --space-xs: 8px;
@@ -168,7 +169,7 @@ p {
 }
 
 :where(.btn--dark) {
-  --backdrop: hsl(var(--text));
+  --backdrop: hsl(var(--dark-button));
 }
 
 :where(.btn--outline) {
